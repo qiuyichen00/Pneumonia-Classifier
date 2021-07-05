@@ -13,7 +13,7 @@ def loading_model():
   with zipfile.ZipFile("pruned_res50_model.zip", 'r') as zip_ref:
     zip_ref.extractall()
 
-  fp = "pruned_vgg_model.h5"
+  fp = "pruned_res50_model.h5"
   model_loader = keras.models.load_model(fp)
   return model_loader
 
