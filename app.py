@@ -1,13 +1,12 @@
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model
+from tensorflow import keras
 import tensorflow as tf
 from PIL import Image, ImageOps
-from tensorflow.keras import backend as K
+#from tensorflow.keras import backend as K
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 @st.cache(allow_output_mutation=True)
-
 
 def loading_model():
   import zipfile
@@ -15,7 +14,7 @@ def loading_model():
     zip_ref.extractall()
 
   fp = "pruned_vgg_model.h5"
-  model_loader = load_model(fp)
+  model_loader = keras.models.load_model(fp)
   return model_loader
 
 def import_predict(image_data,model):
@@ -23,7 +22,7 @@ def import_predict(image_data,model):
   image = ImageOps.fit(image_data,size)
   image = np.asarray(image)
   resized_image = image.reshape(1,224,224,3)
-  processed_image = tf.keras.applications.vgg16.preprocess_input(resized_image)
+  processed_image = keras.applications.vgg16.preprocess_input(resized_image)
   prediction = model.predict(processed_image)
   conf = np.max(prediction)
   st.success(str(conf))
