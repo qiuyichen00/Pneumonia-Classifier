@@ -25,29 +25,30 @@ def import_predict(image_data,model):
   processed_image = keras.applications.vgg16.preprocess_input(resized_image)
   prediction = model.predict(processed_image)
   conf = np.max(prediction)
-  st.success(str(conf))
-  return prediction
+  return prediction, conf
 
 model = loading_model()
 st.write("""
-# X-Ray Classification (Pneumonia/Normal) -by Y.Q.
+# X-Ray Image Classification (Pneumonia/Normal)  by Y.Q.
 """)
 
-temp_file = st.file_uploader("Upload X-Ray Image")
+temp_file = st.file_uploader("Upload X-Ray Image (Note: image's height and width must be larger than 224 pixels)")
 
 if(temp_file is None):
-  st.text("Please upload a X-Ray image file here")
+  st.text("Please upload a X-Ray image file here ")
 
 else:
   image = (Image.open(temp_file)).convert('RGB')
-  st.image(image,use_column_width=True)
-  pred = import_predict(image,model)
+  pred,conf = import_predict(image,model)
 
-  out = (str(pred[0][1]))
-
-  if pred[0][1]== 1:
-    out = ('this is a Pneumonia case')
+  if pred[0][1] > 0.5:
+    out = ('This is a Pneumonia case')
     st.success(out)
   else:
-    out = ('this is a Normal case')
+    out = ('This is a Normal case')
     st.success(out)
+
+  st.success("Confidence Level (0 to 1): " + str(conf))
+  st.image(image, use_column_width=True)
+
+st.text("github link: https://github.com/qiuyichen00/Pneumonia-Classifier")

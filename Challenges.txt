@@ -1,0 +1,11 @@
+1. Data Augmentation
+Need lots of time to try out different combinations, need patience.
+
+
+2. Reduce the size of model
+At first, didn't even realize that the issue exists (Before never deployed the model as web app). First challenge is the
+model weights file is way too large for the maximum file size (100 Mb for github). After fail to find other methods (like
+zip, different file format), find one layer in model has significantly more parameters than others, then enlightened by Res40
+net, use Global Average Pooling layer to dramatically reduce the dimension.
+
+

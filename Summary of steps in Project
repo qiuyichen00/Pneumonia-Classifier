@@ -1,0 +1,30 @@
+This is a summary of the steps I went through when developing this web app
+First Week:
+i. Pre-work
+1. Study Tensorflow and Keras frameworks
+2. Implement a simple CNN classifier for dog and cat by Keras
+3. Consult medical doctors what symptons or diseases can be detected by X-Ray images
+4. Confirm to use X-Ray images to discern Pneumonia
+
+ii. Start the project
+5. Study a post using Keras and CNN to classify Pneumonia disease
+(by accident, didn't expect such similar topic)
+6. Design and implement an easy CNN model to achieve 85% accuracy
+7. Easy Transfer Learning using VGG
+8. Make a simple Streamlit App in local server
+
+Second Week:
+9. Try lots of sets of data augmentation techniques on self-made CNN model, doesn't work
+10. Try Transfer Learning of VGG16 and Res50 (just continue training on original model weights
+11. Continue try data augmentation on transfer-learning models, doesn't work
+12. Study and try fine tuning models
+13. Implement fine tuning on VGG and Res models, works well.
+14. Try deploy the app, fail because model.h5 file too large (often over 1GB)
+15. Try using LFS to get around this issue, successfully upload model.h5 file on
+GitHub, but still can't deploy, LFS not supported on heroku
+16. Try using Prune and Quantization to reduce the size of model, didn't work at first
+17. Find out using Global Average (originally used in Res50) to replace the Flatten
+Layer, significantly reduce the size of model (reduced over 1 GB)
+18. Use Prune process to further reduce the size (by 3 times, from 90 Mb to 23 Mb)
+19. Use Tensorflow-cpu instead of Tensorflow to reduce the size of package within web deploying environment.
+19. Deployment of model on heroku
